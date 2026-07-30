@@ -67,3 +67,14 @@ Desktop.ini
 *.bak
 *.tmp
 *.log
+# CubeMX 生成的脚手架文件（从 .ioc 重新生成）
+test/Core/Inc/gpio.h
+test/Core/Inc/i2c.h
+test/Core/Inc/main.h
+test/Core/Inc/stm32f1xx_hal_conf.h
+test/Core/Inc/stm32f1xx_it.h
+test/Core/Src/gpio.c
+test/Core/Src/i2c.c
+test/Core/Src/stm32f1xx_hal_msp.c
+test/Core/Src/stm32f1xx_it.c
+test/Core/Src/system_stm32f1xx.c
