@@ -1,0 +1,45 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Source files
+*.c text diff=cpp
+*.h text diff=cpp
+
+# Documentation
+*.md text diff=markdown
+*.txt text
+
+# Configuration
+*.cfg text
+*.conf text
+*.ini text
+*.json text
+*.yml text diff=yaml
+*.yaml text diff=yaml
+
+# Makefile
+Makefile text
+
+# CMake
+CMakeLists.txt text
+*.cmake text
+
+# Binary files
+*.hex binary
+*.bin binary
+*.o binary
+*.a binary
+*.lib binary
+*.obj binary
+*.elf binary
+*.map binary
+
+# Images
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.bmp binary
+
+# ESP-IDF sdkconfig
+sdkconfig export-ignore
+sdkconfig.old export-ignore

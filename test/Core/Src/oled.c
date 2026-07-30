@@ -1,6 +1,6 @@
 /**
  * @file    oled.c
- * @brief   OLED SSD1306 I2CÇı¶¯ - HAL°æ±¾
+ * @brief   OLED SSD1306 I2Cé©±åŠ¨ - HALç‰ˆæœ¬
  * @version v1.0
  * @date    2025-01-01
  */
@@ -8,13 +8,13 @@
 #include "stdlib.h"
 #include "oledfont.h"
 
-/* OLEDÏÔ´æGRAM 128x4 ¹²8Ò³
- * SSD1306 128x32 ¹²4Ò³(Ã¿Ò³128×Ö½Ú) */
+/* OLEDæ˜¾å­˜GRAM 128x4 å…±8é¡µ
+ * SSD1306 128x32 å…±4é¡µ(æ¯é¡µ128å­—èŠ‚) */
 uint8_t OLED_GRAM[128][4];
 
 /**
- * @brief ÉèÖÃOLEDÑÕÉ«·´×ª
- * @param i 0-Õı³£ÏÔÊ¾ 1-·´É«ÏÔÊ¾
+ * @brief è®¾ç½®OLEDé¢œè‰²åè½¬
+ * @param i 0-æ­£å¸¸æ˜¾ç¤º 1-åè‰²æ˜¾ç¤º
  */
 void OLED_ColorTurn(uint8_t i)
 {
@@ -27,8 +27,8 @@ void OLED_ColorTurn(uint8_t i)
 }
 
 /**
- * @brief ÉèÖÃOLEDÆÁÄ»Ğı×ª
- * @param i 0-Õı³£·½Ïò 1-180¶ÈĞı×ª
+ * @brief è®¾ç½®OLEDå±å¹•æ—‹è½¬
+ * @param i 0-æ­£å¸¸æ–¹å‘ 1-180åº¦æ—‹è½¬
  */
 void OLED_DisplayTurn(uint8_t i)
 {
@@ -43,8 +43,8 @@ void OLED_DisplayTurn(uint8_t i)
 }
 
 /**
- * @brief I2CÈí¼şÑÓÊ±
- * @details Ê¹ÓÃ¿ÕÑ­»·²úÉúI2CÊ±ĞòËùĞèµÄÑÓÊ±
+ * @brief I2Cè½¯ä»¶å»¶æ—¶
+ * @details ä½¿ç”¨ç©ºå¾ªç¯äº§ç”ŸI2Cæ—¶åºæ‰€éœ€çš„å»¶æ—¶
  */
 void IIC_delay(void)
 {
@@ -53,8 +53,8 @@ void IIC_delay(void)
 }
 
 /**
- * @brief I2CÆğÊ¼ĞÅºÅ
- * @details SCL¸ßµçÆ½Ê±£¬SDA´Ó¸ß±äµÍ
+ * @brief I2Cèµ·å§‹ä¿¡å·
+ * @details SCLé«˜ç”µå¹³æ—¶ï¼ŒSDAä»é«˜å˜ä½
  */
 void I2C_Start(void)
 {
@@ -68,8 +68,8 @@ void I2C_Start(void)
 }
 
 /**
- * @brief I2CÍ£Ö¹ĞÅºÅ
- * @details SCL¸ßµçÆ½Ê±£¬SDA´ÓµÍ±ä¸ß
+ * @brief I2Cåœæ­¢ä¿¡å·
+ * @details SCLé«˜ç”µå¹³æ—¶ï¼ŒSDAä»ä½å˜é«˜
  */
 void I2C_Stop(void)
 {
@@ -80,7 +80,7 @@ void I2C_Stop(void)
 }
 
 /**
- * @brief I2CµÈ´ıÓ¦´ğĞÅºÅ
+ * @brief I2Cç­‰å¾…åº”ç­”ä¿¡å·
  */
 void I2C_WaitAck(void)
 {
@@ -93,9 +93,9 @@ void I2C_WaitAck(void)
 }
 
 /**
- * @brief I2C·¢ËÍÒ»¸ö×Ö½ÚÊı¾İ
- * @param dat Òª·¢ËÍµÄÊı¾İ×Ö½Ú
- * @details ¸ßÎ»ÏÈ³ö£¬MSB first
+ * @brief I2Cå‘é€ä¸€ä¸ªå­—èŠ‚æ•°æ®
+ * @param dat è¦å‘é€çš„æ•°æ®å­—èŠ‚
+ * @details é«˜ä½å…ˆå‡ºï¼ŒMSB first
  */
 void Send_Byte(uint8_t dat)
 {
@@ -115,9 +115,9 @@ void Send_Byte(uint8_t dat)
 }
 
 /**
- * @brief OLEDĞ´Ò»¸ö×Ö½Ú
- * @param dat  ÒªĞ´ÈëµÄÊı¾İ
- * @param mode OLED_CMD=ÃüÁîÄ£Ê½ OLED_DATA=Êı¾İÄ£Ê½
+ * @brief OLEDå†™ä¸€ä¸ªå­—èŠ‚
+ * @param dat  è¦å†™å…¥çš„æ•°æ®
+ * @param mode OLED_CMD=å‘½ä»¤æ¨¡å¼ OLED_DATA=æ•°æ®æ¨¡å¼
  */
 void OLED_WR_Byte(uint8_t dat, uint8_t mode)
 {
@@ -136,7 +136,7 @@ void OLED_WR_Byte(uint8_t dat, uint8_t mode)
 }
 
 /**
- * @brief OLED¿ªÆôÏÔÊ¾
+ * @brief OLEDå¼€å¯æ˜¾ç¤º
  */
 void OLED_DisPlay_On(void)
 {
@@ -146,7 +146,7 @@ void OLED_DisPlay_On(void)
 }
 
 /**
- * @brief OLED¹Ø±ÕÏÔÊ¾
+ * @brief OLEDå…³é—­æ˜¾ç¤º
  */
 void OLED_DisPlay_Off(void)
 {
@@ -156,8 +156,8 @@ void OLED_DisPlay_Off(void)
 }
 
 /**
- * @brief Ë¢ĞÂGRAMµ½OLEDÏÔÊ¾
- * @details ½«GRAMÖĞµÄÊı¾İ·¢ËÍµ½OLEDµÄRAMÖĞ£¬ÊµÏÖÏÔÊ¾¸üĞÂ
+ * @brief åˆ·æ–°GRAMåˆ°OLEDæ˜¾ç¤º
+ * @details å°†GRAMä¸­çš„æ•°æ®å‘é€åˆ°OLEDçš„RAMä¸­ï¼Œå®ç°æ˜¾ç¤ºæ›´æ–°
  */
 void OLED_Refresh(void)
 {
@@ -180,8 +180,8 @@ void OLED_Refresh(void)
 }
 
 /**
- * @brief Çå¿ÕÆÁÄ»
- * @details ½«GRAMÈ«²¿ÖÃÁã²¢Ë¢ĞÂÆÁÄ»
+ * @brief æ¸…ç©ºå±å¹•
+ * @details å°†GRAMå…¨éƒ¨ç½®é›¶å¹¶åˆ·æ–°å±å¹•
  */
 void OLED_Clear(void)
 {
@@ -195,10 +195,10 @@ void OLED_Clear(void)
 }
 
 /**
- * @brief »­Ò»¸öÏñËØµã
- * @param x ºá×ø±ê 0-127
- * @param y ×İ×ø±ê 0-63
- * @param t 1-µãÁÁ 0-Ï¨Ãğ
+ * @brief ç”»ä¸€ä¸ªåƒç´ ç‚¹
+ * @param x æ¨ªåæ ‡ 0-127
+ * @param y çºµåæ ‡ 0-63
+ * @param t 1-ç‚¹äº® 0-ç†„ç­
  */
 void OLED_DrawPoint(uint8_t x, uint8_t y, uint8_t t)
 {
@@ -214,9 +214,9 @@ void OLED_DrawPoint(uint8_t x, uint8_t y, uint8_t t)
 }
 
 /**
- * @brief Çå³ıÒ»¸öÏñËØµã
- * @param x ºá×ø±ê 0-127
- * @param y ×İ×ø±ê 0-63
+ * @brief æ¸…é™¤ä¸€ä¸ªåƒç´ ç‚¹
+ * @param x æ¨ªåæ ‡ 0-127
+ * @param y çºµåæ ‡ 0-63
  */
 void OLED_ClearPoint(uint8_t x, uint8_t y)
 {
@@ -228,12 +228,12 @@ void OLED_ClearPoint(uint8_t x, uint8_t y)
 }
 
 /**
- * @brief »­Ò»ÌõÖ±Ïß
- * @param x1   Æğµãºá×ø±ê
- * @param y1   Æğµã×İ×ø±ê
- * @param x2   ÖÕµãºá×ø±ê
- * @param y2   ÖÕµã×İ×ø±ê
- * @param mode 1-»­Ïß 0-Çå³ıÏß
+ * @brief ç”»ä¸€æ¡ç›´çº¿
+ * @param x1   èµ·ç‚¹æ¨ªåæ ‡
+ * @param y1   èµ·ç‚¹çºµåæ ‡
+ * @param x2   ç»ˆç‚¹æ¨ªåæ ‡
+ * @param y2   ç»ˆç‚¹çºµåæ ‡
+ * @param mode 1-ç”»çº¿ 0-æ¸…é™¤çº¿
  */
 void OLED_DrawLine(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t mode)
 {
@@ -268,11 +268,11 @@ void OLED_DrawLine(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t mode)
 }
 
 /**
- * @brief »­Ò»¸öÔ²
- * @param x Ô²ĞÄºá×ø±ê
- * @param y Ô²ĞÄ×İ×ø±ê
- * @param r °ë¾¶
- * @details Ê¹ÓÃBresenham»­Ô²Ëã·¨
+ * @brief ç”»ä¸€ä¸ªåœ†
+ * @param x åœ†å¿ƒæ¨ªåæ ‡
+ * @param y åœ†å¿ƒçºµåæ ‡
+ * @param r åŠå¾„
+ * @details ä½¿ç”¨Bresenhamç”»åœ†ç®—æ³•
  */
 void OLED_DrawCircle(uint8_t x, uint8_t y, uint8_t r)
 {
@@ -298,12 +298,12 @@ void OLED_DrawCircle(uint8_t x, uint8_t y, uint8_t r)
 }
 
 /**
- * @brief ÏÔÊ¾Ò»¸öASCII×Ö·û
- * @param x     ºá×ø±ê
- * @param y     ×İ×ø±ê
- * @param chr   ×Ö·ûASCIIÂë
- * @param size1 ×ÖºÅ 8/12/16/24
- * @param mode  1-Õı³£ÏÔÊ¾ 0-·´É«ÏÔÊ¾
+ * @brief æ˜¾ç¤ºä¸€ä¸ªASCIIå­—ç¬¦
+ * @param x     æ¨ªåæ ‡
+ * @param y     çºµåæ ‡
+ * @param chr   å­—ç¬¦ASCIIç 
+ * @param size1 å­—å· 8/12/16/24
+ * @param mode  1-æ­£å¸¸æ˜¾ç¤º 0-åè‰²æ˜¾ç¤º
  */
 void OLED_ShowChar(uint8_t x, uint8_t y, uint8_t chr, uint8_t size1, uint8_t mode)
 {
@@ -338,11 +338,11 @@ void OLED_ShowChar(uint8_t x, uint8_t y, uint8_t chr, uint8_t size1, uint8_t mod
 }
 
 /**
- * @brief ÏÔÊ¾6x8µãÕó×Ö·û(±¸ÓÃÏÔÊ¾º¯Êı)
- * @param x     ºá×ø±ê
- * @param y     ×İ×ø±ê
- * @param chr   ×Ö·ûASCIIÂë
- * @param mode  1-Õı³£ÏÔÊ¾ 0-·´É«ÏÔÊ¾
+ * @brief æ˜¾ç¤º6x8ç‚¹é˜µå­—ç¬¦(å¤‡ç”¨æ˜¾ç¤ºå‡½æ•°)
+ * @param x     æ¨ªåæ ‡
+ * @param y     çºµåæ ‡
+ * @param chr   å­—ç¬¦ASCIIç 
+ * @param mode  1-æ­£å¸¸æ˜¾ç¤º 0-åè‰²æ˜¾ç¤º
  */
 void OLED_ShowChar6x8(uint8_t x, uint8_t y, uint8_t chr, uint8_t mode)
 {
@@ -363,12 +363,12 @@ void OLED_ShowChar6x8(uint8_t x, uint8_t y, uint8_t chr, uint8_t mode)
 }
 
 /**
- * @brief ÏÔÊ¾×Ö·û´®
- * @param x     ºá×ø±ê
- * @param y     ×İ×ø±ê
- * @param chr   ×Ö·û´®Ö¸Õë
- * @param size1 ×ÖºÅ 8/12/16/24
- * @param mode  1-Õı³£ÏÔÊ¾ 0-·´É«ÏÔÊ¾
+ * @brief æ˜¾ç¤ºå­—ç¬¦ä¸²
+ * @param x     æ¨ªåæ ‡
+ * @param y     çºµåæ ‡
+ * @param chr   å­—ç¬¦ä¸²æŒ‡é’ˆ
+ * @param size1 å­—å· 8/12/16/24
+ * @param mode  1-æ­£å¸¸æ˜¾ç¤º 0-åè‰²æ˜¾ç¤º
  */
 void OLED_ShowString(uint8_t x, uint8_t y, uint8_t *chr, uint8_t size1, uint8_t mode)
 {
@@ -381,10 +381,10 @@ void OLED_ShowString(uint8_t x, uint8_t y, uint8_t *chr, uint8_t size1, uint8_t 
 }
 
 /**
- * @brief ÃİÔËËã
- * @param m µ×Êı
- * @param n Ö¸Êı
- * @return mµÄn´Î·½
+ * @brief å¹‚è¿ç®—
+ * @param m åº•æ•°
+ * @param n æŒ‡æ•°
+ * @return mçš„næ¬¡æ–¹
  */
 uint32_t OLED_Pow(uint8_t m, uint8_t n)
 {
@@ -396,13 +396,13 @@ uint32_t OLED_Pow(uint8_t m, uint8_t n)
 }
 
 /**
- * @brief ÏÔÊ¾ÎŞ·ûºÅÕûÊı
- * @param x     ºá×ø±ê
- * @param y     ×İ×ø±ê
- * @param num   ÒªÏÔÊ¾µÄÊı×Ö
- * @param len   Êı×ÖÎ»Êı
- * @param size1 ×ÖºÅ 8/12/16/24
- * @param mode  1-Õı³£ÏÔÊ¾ 0-·´É«ÏÔÊ¾
+ * @brief æ˜¾ç¤ºæ— ç¬¦å·æ•´æ•°
+ * @param x     æ¨ªåæ ‡
+ * @param y     çºµåæ ‡
+ * @param num   è¦æ˜¾ç¤ºçš„æ•°å­—
+ * @param len   æ•°å­—ä½æ•°
+ * @param size1 å­—å· 8/12/16/24
+ * @param mode  1-æ­£å¸¸æ˜¾ç¤º 0-åè‰²æ˜¾ç¤º
  */
 void OLED_ShowNum(uint8_t x, uint8_t y, uint32_t num, uint8_t len, uint8_t size1, uint8_t mode)
 {
@@ -419,117 +419,57 @@ void OLED_ShowNum(uint8_t x, uint8_t y, uint32_t num, uint8_t len, uint8_t size1
 }
 
 /**
- * @brief ÏÔÊ¾ºº×Ö
- * @param x     ºá×ø±ê
- * @param y     ×İ×ø±ê
- * @param num   ºº×Ö×Ö¿âË÷Òı
- * @param size1 ×ÖºÅ 16/24/32/64
- * @param mode  1-Õı³£ÏÔÊ¾ 0-·´É«ÏÔÊ¾
+ * @brief æ˜¾ç¤ºæ±‰å­—
+ * @param x     æ¨ªåæ ‡
+ * @param y     çºµåæ ‡
+ * @param num   æ±‰å­—å­—åº“ç´¢å¼•
+ * @param size1 å­—å· 16/24/32/64
+ * @param mode  1-æ­£å¸¸æ˜¾ç¤º 0-åè‰²æ˜¾ç¤º
  */
 void OLED_ShowChinese(uint8_t x, uint8_t y, uint8_t num, uint8_t size1, uint8_t mode)
 {
-    uint8_t m, temp;
-    uint8_t x0 = x, y0 = y;
-    uint16_t i, size3 = (size1 / 8 + ((size1 % 8) ? 1 : 0)) * size1;
-    for (i = 0; i < size3; i++) {
-        if (size1 == 16)
-            temp = Hzk1[num][i];
-        else if (size1 == 24)
-            temp = Hzk2[num][i];
-        else if (size1 == 32)
-            temp = Hzk3[num][i];
-        else if (size1 == 64)
-            temp = Hzk4[num][i];
-        else return;
-        for (m = 0; m < 8; m++) {
-            if (temp & 0x01) OLED_DrawPoint(x, y, mode);
-            else OLED_DrawPoint(x, y, !mode);
-            temp >>= 1;
-            y++;
-        }
-        x++;
-        if ((x - x0) == size1) {
-            x = x0;
-            y0 = y0 + 8;
-        }
-        y = y0;
-    }
+    (void)x;
+    (void)y;
+    (void)num;
+    (void)size1;
+    (void)mode;
 }
 
 /**
- * @brief ¹ö¶¯ÏÔÊ¾ºº×Ö
- * @param num   ºº×ÖÊıÁ¿
- * @param space ¹ö¶¯¼ä¸ôÏñËØÊı
- * @param mode  1-Õı³£ÏÔÊ¾ 0-·´É«ÏÔÊ¾
- * @note ´Ëº¯Êı»á½øÈëÎŞÏŞÑ­»·£¬Ğèµ÷ÓÃOLED_StopScrollÍ£Ö¹
+ * @brief æ»šåŠ¨æ˜¾ç¤ºæ±‰å­—
+ * @param num   æ±‰å­—æ•°é‡
+ * @param space æ»šåŠ¨é—´éš”åƒç´ æ•°
+ * @param mode  1-æ­£å¸¸æ˜¾ç¤º 0-åè‰²æ˜¾ç¤º
+ * @note æ­¤å‡½æ•°ä¼šè¿›å…¥æ— é™å¾ªç¯ï¼Œéœ€è°ƒç”¨OLED_StopScrollåœæ­¢
  */
 void OLED_ScrollDisplay(uint8_t num, uint8_t space, uint8_t mode)
 {
-    uint8_t i, n, t = 0, m = 0, r;
-    while (1) {
-        if (m == 0) {
-            OLED_ShowChinese(128, 8, t, 16, mode);
-            t++;
-        }
-        if (t == num) {
-            for (r = 0; r < 16 * space; r++) {
-                for (i = 1; i < 128; i++) {
-                    for (n = 0; n < 4; n++) {
-                        OLED_GRAM[i - 1][n] = OLED_GRAM[i][n];
-                    }
-                }
-                OLED_Refresh();
-            }
-            t = 0;
-        }
-        m++;
-        if (m == 16) m = 0;
-        for (i = 1; i < 128; i++) {
-            for (n = 0; n < 4; n++) {
-                OLED_GRAM[i - 1][n] = OLED_GRAM[i][n];
-            }
-        }
-        OLED_Refresh();
-    }
+    (void)num;
+    (void)space;
+    (void)mode;
 }
 
 /**
- * @brief ÏÔÊ¾Í¼Æ¬
- * @param x     ºá×ø±ê
- * @param y     ×İ×ø±ê
- * @param sizex Í¼Æ¬¿í¶È
- * @param sizey Í¼Æ¬¸ß¶È
- * @param BMP   Í¼Æ¬Êı¾İÊı×é
- * @param mode  1-Õı³£ÏÔÊ¾ 0-·´É«ÏÔÊ¾
+ * @brief æ˜¾ç¤ºå›¾ç‰‡
+ * @param x     æ¨ªåæ ‡
+ * @param y     çºµåæ ‡
+ * @param sizex å›¾ç‰‡å®½åº¦
+ * @param sizey å›¾ç‰‡é«˜åº¦
+ * @param BMP   å›¾ç‰‡æ•°æ®æ•°ç»„
+ * @param mode  1-æ­£å¸¸æ˜¾ç¤º 0-åè‰²æ˜¾ç¤º
  */
 void OLED_ShowPicture(uint8_t x, uint8_t y, uint8_t sizex, uint8_t sizey, const uint8_t BMP[], uint8_t mode)
 {
-    uint16_t j = 0;
-    uint8_t i, n, temp, m;
-    uint8_t x0 = x, y0 = y;
-    sizey = sizey / 8 + ((sizey % 8) ? 1 : 0);
-    for (n = 0; n < sizey; n++) {
-        for (i = 0; i < sizex; i++) {
-            temp = BMP[j];
-            j++;
-            for (m = 0; m < 8; m++) {
-                if (temp & 0x01) OLED_DrawPoint(x, y, mode);
-                else OLED_DrawPoint(x, y, !mode);
-                temp >>= 1;
-                y++;
-            }
-            x++;
-            if ((x - x0) == sizex) {
-                x = x0;
-                y0 = y0 + 8;
-            }
-            y = y0;
-        }
-    }
+    (void)x;
+    (void)y;
+    (void)sizex;
+    (void)sizey;
+    (void)BMP;
+    (void)mode;
 }
 
 /**
- * @brief Í£Ö¹¹ö¶¯ÏÔÊ¾
+ * @brief åœæ­¢æ»šåŠ¨æ˜¾ç¤º
  */
 void OLED_StopScroll(void)
 {
@@ -537,8 +477,8 @@ void OLED_StopScroll(void)
 }
 
 /**
- * @brief OLED³õÊ¼»¯
- * @details ¸´Î»SSD1306²¢·¢ËÍ³õÊ¼»¯ÃüÁîĞòÁĞ
+ * @brief OLEDåˆå§‹åŒ–
+ * @details å¤ä½SSD1306å¹¶å‘é€åˆå§‹åŒ–å‘½ä»¤åºåˆ—
  */
 void OLED_Init(void)
 {

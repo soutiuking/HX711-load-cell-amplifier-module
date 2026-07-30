@@ -21,8 +21,8 @@ This project incorporates components from the following third-party projects:
 - Usage: Development framework for ESP32-S3 firmware
 
 ## SSD1306 OLED Display Driver (Reference Implementation)
-- Source: Various open-source implementations
-- License: Public Domain / MIT (commonly used)
+- Source: Project-maintained implementation based on common SSD1306 software I2C routines
+- License: Apache License 2.0 for project-maintained code; verify any copied reference snippets before redistribution
 - Usage: Base reference for software I2C OLED driver
 
 ## FreeRTOS
@@ -38,10 +38,9 @@ This project incorporates components from the following third-party projects:
 - Usage: HX711 load cell amplifier driver for STM32 and ESP32 platforms
 
 ## Font Data (OLED Display)
-- Source: Various open-source font data
-- License: Public Domain (standard ASCII font bitmaps)
-- Usage: 8x6, 12x6, 16x8, 24x12 ASCII character bitmaps and Chinese character bitmaps
+- Source: Embedded OLED bitmap font resources bundled with the original project
+- License: Project-maintained ASCII bitmap font data retained; Chinese bitmap font data removed
+- Usage: 8x6, 12x6, 16x8, 24x12 ASCII character bitmaps
 
-Note: The Chinese character bitmap data (Hzk1-Hzk4) included in oledfont.h is derived
-from publicly available embedded font resources. Please verify the license terms
-if redistributing this font data separately.
+Note: Chinese character bitmap data (Hzk1-Hzk4) is not bundled with this open-source
+package. The remaining Hzk arrays are blank placeholders for source compatibility.

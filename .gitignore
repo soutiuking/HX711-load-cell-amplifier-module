@@ -82,16 +82,7 @@ test/Core/Src/stm32f1xx_hal_msp.c
 test/Core/Src/stm32f1xx_it.c
 test/Core/Src/system_stm32f1xx.c
 # 构建初始化文件（按 README 指引自行创建）
-test/test.ioc
 test/.mxproject
 test/MDK-ARM/
-test-idf/CMakeLists.txt
-test-idf/main/CMakeLists.txt
-# 未使用的代码
-test/Core/Inc/bmp.h
-test/Core/Src/myiic.c
-test-idf/main/bmp.h
 
 # 编辑器/仓库配置（非必需）
-.editorconfig
-.gitattributes

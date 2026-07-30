@@ -1,12 +1,12 @@
 /**
  *******************************************************************************
  * @file    oled.h
- * @brief   OLED SSD1306 128x64 软件I2C驱动 - HAL版本
+ * @brief   OLED SSD1306 128x32 软件I2C驱动 - HAL版本
  *
  * @version V1.2.0
  * @date    2026-05-02
  *
- * @note    适用于STM32F1系列，使用PA0(SCL)、PA1(SDA)、PA2(RES)
+ * @note    适用于STM32F1系列，使用PA3(SCL)、PA4(SDA)、PA5(RES)
  *******************************************************************************
  */
 
@@ -187,34 +187,39 @@ void OLED_ShowString(uint8_t x, uint8_t y, uint8_t *chr, uint8_t size1, uint8_t 
 void OLED_ShowNum(uint8_t x, uint8_t y, uint32_t num, uint8_t len, uint8_t size1, uint8_t mode);
 
 /**
- * @brief   OLED显示汉字
+ * @brief   OLED显示汉字（当前为占位空实现）
  * @param   x: 横坐标
  * @param   y: 纵坐标
  * @param   num: 汉字在字库中的索引
  * @param   size1: 字号(仅支持16)
  * @param   mode: 0-反白显示 1-正常显示
+ * @note    汉字点阵字库已从开源包中移除，调用后不会显示内容。
  * @retval  None
  */
 void OLED_ShowChinese(uint8_t x, uint8_t y, uint8_t num, uint8_t size1, uint8_t mode);
 
 /**
- * @brief   OLED滚动显示
+ * @brief   OLED滚动显示（当前为占位空实现）
  * @param   num: 滚动汉字数量
  * @param   space: 滚动间隔
  * @param   mode: 0-反白显示 1-正常显示
- * @note    此函数会进入无限循环
+ * @note    汉字点阵字库已从开源包中移除，调用后不会显示内容，也不会进入滚动循环。
  * @retval  None
  */
 void OLED_ScrollDisplay(uint8_t num, uint8_t space, uint8_t mode);
 
 /**
- * @brief   OLED显示图片
+ * @brief   OLED显示图片（当前为占位空实现）
  * @param   x: 横坐标
  * @param   y: 纵坐标
  * @param   sizex: 图片宽度
  * @param   sizey: 图片高度
  * @param   BMP: 图片数据数组
  * @param   mode: 0-反白显示 1-正常显示
+ * @note    图像数据未随开源包发布，调用后不会显示内容。若要启用图片显示，
+ *          请准备 SSD1306 page 格式单色位图：1 字节表示纵向 8 个像素，
+ *          bit0 为该页最上方像素；数据按从左到右、从上方页到下方页排列，
+ *          字节数为 sizex * ((sizey + 7) / 8)。
  * @retval  None
  */
 void OLED_ShowPicture(uint8_t x, uint8_t y, uint8_t sizex, uint8_t sizey, const uint8_t BMP[], uint8_t mode);
