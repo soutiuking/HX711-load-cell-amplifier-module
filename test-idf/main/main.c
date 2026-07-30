@@ -1,22 +1,22 @@
 /**
  *******************************************************************************
  * @file    main.c
- * @brief   ESP32-S3 HX711ç§°é‡ä¼ æ„Ÿå™¨ç¤ºä¾‹ç¨‹åº
+ * @brief   ESP32-S3 HX711³ÆÖØ´«¸ĞÆ÷Ê¾Àı³ÌĞò
  * @version v1.0
  *
- * ========================== ç¡¬ä»¶é…ç½® ==========================
+ * ========================== Ó²¼şÅäÖÃ ==========================
  *
- * å±å¹•: 128x32 OLED
- * HX711æ¨¡å—: SCK=GPIO1, DT=GPIO2
+ * ÆÁÄ»: 128x32 OLED
+ * HX711Ä£¿é: SCK=GPIO1, DT=GPIO2
  * OLED: SCL=GPIO3, SDA=GPIO4
  *
- * ========================== æ˜¾ç¤ºé¡µé¢ ==========================
+ * ========================== ÏÔÊ¾Ò³Ãæ ==========================
  *
- * ç¬¬1é¡µ: ç³»ç»ŸçŠ¶æ€
- * ç¬¬2é¡µ: ADåŸå§‹å€¼ + ç”µå‹
- * ç¬¬3é¡µ: é‡é‡æ˜¾ç¤º
+ * µÚ1Ò³: ÏµÍ³×´Ì¬
+ * µÚ2Ò³: ADÔ­Ê¼Öµ + µçÑ¹
+ * µÚ3Ò³: ÖØÁ¿ÏÔÊ¾
  *
- * æ¯é¡µ2ç§’å¾ªç¯åˆ‡æ¢
+ * Ã¿Ò³2ÃëÑ­»·ÇĞ»»
  *
  *******************************************************************************
  */
@@ -28,56 +28,54 @@
 #include "oled.h"
 #include "filter.h"
 
-/** @brief é¡µé¢åˆ‡æ¢æ—¶é—´é—´éš”(æ¯«ç§’) */
+/** @brief Ò³ÃæÇĞ»»Ê±¼ä¼ä¸ô(ºÁÃë) */
 #define PAGE_SWITCH_TIME_MS  2000
 
-/** @brief å½“å‰æ˜¾ç¤ºé¡µé¢ç´¢å¼•(0/1/2) */
+/** @brief µ±Ç°ÏÔÊ¾Ò³ÃæË÷Òı(0/1/2) */
 static uint8_t current_page = 0;
 
-/** @brief æ»¤æ³¢åçš„é‡é‡å€¼(å…‹) */
+/** @brief ÂË²¨ºóµÄÖØÁ¿Öµ(¿Ë) */
 static float filtered_weight = 0.0f;
 
-/** @brief æœ€æ–°çš„åŸå§‹ADå€¼ */
+/** @brief ×îĞÂµÄÔ­Ê¼ADÖµ */
 static uint32_t raw_ad = 0;
 
-/** @brief æ»¤æ³¢åçš„ç”µå‹å€¼(æ¯«ä¼) */
+/** @brief ÂË²¨ºóµÄµçÑ¹Öµ(ºÁ·ü) */
 static float filtered_voltage = 0.0f;
 
 /**
- * @brief é‡‡æ ·ä»»åŠ¡(åå°è¿è¡Œ)
+ * @brief ²ÉÑùÈÎÎñ(ºóÌ¨ÔËĞĞ)
  *
- * ç‹¬ç«‹ä»»åŠ¡ï¼Œæ¯100msé‡‡æ ·ä¸€æ¬¡HX711æ•°æ®ï¼Œ
- * æ›´æ–°åŸå§‹ADå€¼ã€æ»¤æ³¢é‡é‡å’Œæ»¤æ³¢ç”µå‹ã€‚
+ * ¶ÀÁ¢ÈÎÎñ£¬Ã¿100ms²ÉÑùÒ»´ÎHX711Êı¾İ£¬
+ * ¸üĞÂÔ­Ê¼ADÖµ¡¢ÂË²¨ÖØÁ¿ºÍÂË²¨µçÑ¹¡£
  *
- * @param pvParameters ä»»åŠ¡å‚æ•°(æœªä½¿ç”¨)
+ * @param pvParameters ÈÎÎñ²ÎÊı(Î´Ê¹ÓÃ)
  */
 static void sample_task(void *pvParameters)
 {
     while(1) {
-        /* è¯»å–åŸå§‹ADå€¼ */
+        /* ¶ÁÈ¡Ô­Ê¼ADÖµ */
         raw_ad = HX711_Read();
 
-        /* è®¡ç®—å‡€ADå€¼(å‡å»é›¶ç‚¹åç§») */
-        uint32_t net = (raw_ad > g_hx711_offset) ? (raw_ad - g_hx711_offset) : 0;
+        /* ¼ÆËã¾»ADÖµ(¼õÈ¥ÁãµãÆ«ÒÆ) */
+        uint32_t net = (raw_ad > (uint32_t)g_hx711_offset) ?
+                       (raw_ad - (uint32_t)g_hx711_offset) : 0;
 
-        /* å°†å‡€ADå€¼è½¬æ¢ä¸ºé‡é‡ */
+        /* ¼ÆËãÖØÁ¿²¢ÂË²¨ */
         float weight = (float)net / g_hx711_scale;
-
-        /* åº”ç”¨ä¸€é˜¶ä½é€šæ»¤æ³¢ */
         filtered_weight = Filter_Apply(&weight_filter, weight);
 
-        /* è®¡ç®—æ»¤æ³¢åçš„ç”µå‹(æ¯«ä¼) */
-        filtered_voltage = filtered_weight * 1000.0f;
+        /* ´ÓÔ­Ê¼ADÖµ¼ÆËãµçÑ¹(mV) */
+        filtered_voltage = (raw_ad * HX711_COEF) / 1000.0f;
 
-        /* å»¶æ—¶100ms */
         vTaskDelay(100 / portTICK_PERIOD_MS);
     }
 }
 
 /**
- * @brief æ˜¾ç¤ºç¬¬1é¡µ - ç³»ç»ŸçŠ¶æ€
+ * @brief ÏÔÊ¾µÚ1Ò³ - ÏµÍ³×´Ì¬
  *
- * æ˜¾ç¤ºç³»ç»Ÿåç§°å’Œä¼ æ„Ÿå™¨å‹å·ã€‚
+ * ÏÔÊ¾ÏµÍ³Ãû³ÆºÍ´«¸ĞÆ÷ĞÍºÅ¡£
  */
 static void display_page1(void)
 {
@@ -88,9 +86,9 @@ static void display_page1(void)
 }
 
 /**
- * @brief æ˜¾ç¤ºç¬¬2é¡µ - ADå€¼å’Œç”µå‹
+ * @brief ÏÔÊ¾µÚ2Ò³ - ADÖµºÍµçÑ¹
  *
- * æ˜¾ç¤ºæœ€æ–°çš„åŸå§‹ADå€¼å’Œæ»¤æ³¢åçš„ç”µå‹ã€‚
+ * ÏÔÊ¾×îĞÂµÄÔ­Ê¼ADÖµºÍÂË²¨ºóµÄµçÑ¹¡£
  */
 static void display_page2(void)
 {
@@ -104,20 +102,20 @@ static void display_page2(void)
 }
 
 /**
- * @brief æ˜¾ç¤ºç¬¬3é¡µ - é‡é‡æ˜¾ç¤º
+ * @brief ÏÔÊ¾µÚ3Ò³ - ÖØÁ¿ÏÔÊ¾
  *
- * æ˜¾ç¤ºæ»¤æ³¢åçš„é‡é‡å€¼ï¼Œæ•´æ•°éƒ¨åˆ†4ä½ï¼Œå°æ•°éƒ¨åˆ†2ä½ã€‚
+ * ÏÔÊ¾ÂË²¨ºóµÄÖØÁ¿Öµ£¬ÕûÊı²¿·Ö4Î»£¬Ğ¡Êı²¿·Ö2Î»¡£
  */
 static void display_page3(void)
 {
     OLED_Clear();
     OLED_ShowString(0, 0, "Weight", 12, 1);
 
-    /* åˆ†ç¦»æ•´æ•°å’Œå°æ•°éƒ¨åˆ† */
+    /* ·ÖÀëÕûÊıºÍĞ¡Êı²¿·Ö */
     uint16_t integer = (uint16_t)filtered_weight;
     uint16_t decimal = (uint16_t)((filtered_weight - integer) * 100);
 
-    /* æ˜¾ç¤ºé‡é‡: æ•´æ•°.å°æ•° å•ä½(g) */
+    /* ÏÔÊ¾ÖØÁ¿: ÕûÊı.Ğ¡Êı µ¥Î»(g) */
     OLED_ShowNum(16, 2, integer, 4, 16, 1);
     OLED_ShowString(56, 2, ".", 16, 1);
     OLED_ShowNum(64, 2, decimal, 2, 16, 1);
@@ -126,43 +124,51 @@ static void display_page3(void)
 }
 
 /**
- * @brief ä¸»ä»»åŠ¡å…¥å£
+ * @brief Ö÷ÈÎÎñÈë¿Ú
  *
- * ç¨‹åºå…¥å£å‡½æ•°:
- * 1. åˆå§‹åŒ–HX711å’ŒOLED
- * 2. æ˜¾ç¤ºç³»ç»Ÿå°±ç»ªæç¤º
- * 3. æ‰§è¡Œå»çš®æ“ä½œ
- * 4. å¯åŠ¨åå°é‡‡æ ·ä»»åŠ¡
- * 5. å¾ªç¯æ˜¾ç¤ºä¸‰é¡µå†…å®¹
+ * ³ÌĞòÈë¿Úº¯Êı:
+ * 1. ³õÊ¼»¯HX711ºÍOLED
+ * 2. ÏÔÊ¾ÏµÍ³¾ÍĞ÷ÌáÊ¾
+ * 3. Ö´ĞĞÈ¥Æ¤²Ù×÷
+ * 4. Æô¶¯ºóÌ¨²ÉÑùÈÎÎñ
+ * 5. Ñ­»·ÏÔÊ¾ÈıÒ³ÄÚÈİ
  */
 void app_main(void)
 {
     printf("ESP32-S3 HX711 Test Starting...\n");
 
-    /* åˆå§‹åŒ–HX711ä¼ æ„Ÿå™¨ */
+    /* ³õÊ¼»¯HX711´«¸ĞÆ÷ */
     HX711_Init();
     printf("HX711 initialized\n");
 
-    /* åˆå§‹åŒ–OLEDæ˜¾ç¤ºå± */
+    /* ³õÊ¼»¯OLEDÏÔÊ¾ÆÁ */
     OLED_Init();
     printf("OLED initialized\n");
 
-    /* æ˜¾ç¤ºç³»ç»Ÿå°±ç»ªæç¤º */
+    /* ÏÔÊ¾ÏµÍ³¾ÍĞ÷ÌáÊ¾ */
     OLED_ShowString(8, 1, "System", 16, 1);
     OLED_ShowString(8, 17, "Ready!", 16, 1);
     vTaskDelay(2000 / portTICK_PERIOD_MS);
     OLED_Refresh();
     vTaskDelay(2000 / portTICK_PERIOD_MS);
 
-    /* æ‰§è¡Œå»çš®æ“ä½œ(é›¶ç‚¹æ ‡å®š) */
+    /* Ö´ĞĞÈ¥Æ¤²Ù×÷(Áãµã±ê¶¨) */
+    OLED_Clear();
+    OLED_ShowString(0, 0, "Taring...", 16, 1);
+    OLED_Refresh();
     HX711_Tare(10);
-    printf("HX711 Tare done\n");
+    OLED_Clear();
+    OLED_ShowString(0, 0, "Offset:", 16, 1);
+    OLED_ShowNum(0, 17, g_hx711_offset, 10, 16, 1);
+    OLED_Refresh();
+    vTaskDelay(1000 / portTICK_PERIOD_MS);
+    printf("HX711 Tare done, offset=%ld\n", g_hx711_offset);
 
-    /* å¯åŠ¨åå°é‡‡æ ·ä»»åŠ¡ */
+    /* Æô¶¯ºóÌ¨²ÉÑùÈÎÎñ */
     xTaskCreate(sample_task, "sample", 2048, NULL, 1, NULL);
     printf("Sample task started\n");
 
-    /* ä¸»å¾ªç¯: è½®æµæ˜¾ç¤ºä¸‰é¡µ */
+    /* Ö÷Ñ­»·: ÂÖÁ÷ÏÔÊ¾ÈıÒ³ */
     while(1) {
         switch(current_page) {
             case 0:
@@ -176,13 +182,13 @@ void app_main(void)
                 break;
         }
 
-        /* åˆ‡æ¢åˆ°ä¸‹ä¸€é¡µ */
+        /* ÇĞ»»µ½ÏÂÒ»Ò³ */
         current_page++;
         if(current_page >= 3) {
             current_page = 0;
         }
 
-        /* æ¯é¡µåœç•™2ç§’ */
+        /* Ã¿Ò³Í£Áô2Ãë */
         vTaskDelay(PAGE_SWITCH_TIME_MS / portTICK_PERIOD_MS);
     }
 }
