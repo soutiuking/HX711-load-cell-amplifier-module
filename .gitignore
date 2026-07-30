@@ -1,14 +1,11 @@
 # ==========================
-# Ä¬ÈÏºöÂÔËùÓĞ·ÇºËĞÄÎÄ¼ş
+# é»˜è®¤å¿½ç•¥æ‰€æœ‰éæ ¸å¿ƒæ–‡ä»¶
 # ==========================
 
-# ²ĞÁô¹¹½¨²úÎïÄ¿Â¼
-stm32-hx711/
-
-# µÚÈı·½Çı¶¯¿â£¨·Ç±¾ÏîÄ¿´úÂë£©
+# ç¬¬ä¸‰æ–¹é©±åŠ¨åº“ï¼ˆéæœ¬é¡¹ç›®ä»£ç ï¼‰
 test/Drivers/
 
-# Keil MDK ±àÒë²úÎïºÍ»º´æ
+# Keil MDK ç¼–è¯‘äº§ç‰©å’Œç¼“å­˜
 test/MDK-ARM/.cmsis/
 test/MDK-ARM/DebugConfig/
 test/MDK-ARM/test/
@@ -16,13 +13,13 @@ test/MDK-ARM/*.dep
 test/MDK-ARM/*.uvoptx
 test/MDK-ARM/*.uvguix.*
 
-# VS Code / IDE ÅäÖÃ
+# VS Code / IDE é…ç½®
 .vscode/
 .idea/
 *.user
 *.suo
 
-# ESP-IDF ¹¹½¨²úÎïºÍ±¾µØÅäÖÃ
+# ESP-IDF æ„å»ºäº§ç‰©å’Œæœ¬åœ°é…ç½®
 test-idf/build/
 test-idf/sdkconfig
 test-idf/sdkconfig.old
@@ -32,13 +29,13 @@ test-idf/.vscode/
 test-idf/.cache/
 test-idf/.devcontainer/
 
-# CMake ÖĞ¼äÎÄ¼ş
+# CMake ä¸­é—´æ–‡ä»¶
 CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
 install_manifest.txt
 
-# ±àÒëÊä³ö
+# ç¼–è¯‘è¾“å‡º
 *.o
 *.d
 *.crf
@@ -60,7 +57,7 @@ install_manifest.txt
 __pycache__/
 *.pyc
 
-# ÏµÍ³ºÍ±à¼­Æ÷ÁÙÊ±ÎÄ¼ş
+# ç³»ç»Ÿå’Œç¼–è¾‘å™¨ä¸´æ—¶æ–‡ä»¶
 .DS_Store
 Thumbs.db
 Desktop.ini
@@ -70,7 +67,7 @@ Desktop.ini
 *.bak
 *.tmp
 *.log
-# CubeMX Éú³ÉµÄ½ÅÊÖ¼ÜÎÄ¼ş£¨´Ó .ioc ÖØĞÂÉú³É£©
+# CubeMX ç”Ÿæˆçš„è„šæ‰‹æ¶æ–‡ä»¶ï¼ˆä» .ioc é‡æ–°ç”Ÿæˆï¼‰
 test/Core/Inc/gpio.h
 test/Core/Inc/i2c.h
 test/Core/Inc/main.h
@@ -81,25 +78,17 @@ test/Core/Src/i2c.c
 test/Core/Src/stm32f1xx_hal_msp.c
 test/Core/Src/stm32f1xx_it.c
 test/Core/Src/system_stm32f1xx.c
-# ¹¹½¨³õÊ¼»¯ÎÄ¼ş£¨°´ README Ö¸Òı×ÔĞĞ´´½¨£©
+# æ„å»ºåˆå§‹åŒ–æ–‡ä»¶ï¼ˆæŒ‰ README æŒ‡å¼•è‡ªè¡Œåˆ›å»ºï¼‰
 test/test.ioc
 test/.mxproject
 test/MDK-ARM/
 test-idf/CMakeLists.txt
 test-idf/main/CMakeLists.txt
-# Î´Ê¹ÓÃµÄ´úÂë
+# æœªä½¿ç”¨çš„ä»£ç 
 test/Core/Inc/bmp.h
 test/Core/Src/myiic.c
 test-idf/main/bmp.h
 
-# ¿ò¼ÜÎÄµµ£¨·Ç±ØĞè£©
-CHANGELOG.md
-CODE_OF_CONDUCT.md
-CONTRIBUTING.md
-NOTICE
-SECURITY.md
-THIRD_PARTY_NOTICES.md
-
-# ±à¼­Æ÷/²Ö¿âÅäÖÃ£¨·Ç±ØĞè£©
+# ç¼–è¾‘å™¨/ä»“åº“é…ç½®ï¼ˆéå¿…éœ€ï¼‰
 .editorconfig
 .gitattributes
