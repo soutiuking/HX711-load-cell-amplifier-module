@@ -84,3 +84,19 @@ test/.mxproject
 test/MDK-ARM/
 test-idf/CMakeLists.txt
 test-idf/main/CMakeLists.txt
+# 未使用的代码
+test/Core/Inc/bmp.h
+test/Core/Src/myiic.c
+test-idf/main/bmp.h
+
+# 框架文档（非必需）
+CHANGELOG.md
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+NOTICE
+SECURITY.md
+THIRD_PARTY_NOTICES.md
+
+# 编辑器/仓库配置（非必需）
+.editorconfig
+.gitattributes
